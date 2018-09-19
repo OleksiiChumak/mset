@@ -5,6 +5,7 @@ jdk:
   - oraclejdk8
 
 script:
+  - chmod +x gradlew
   - ./gradlew build --scan -s
 
 before_cache:
