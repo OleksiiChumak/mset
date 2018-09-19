@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id "org.sonarqube" version "2.6"
+    id "net.researchgate.release" version "2.7.0"
+}
+
+apply plugin: 'maven-publish'
+apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
+
+group 'org.mset'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile("org.mockito:mockito-core:2.21.0")
+    testCompile("org.mockito:mockito-junit-jupiter:2.21.0")
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.3.0")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.3.0")
+    testCompile("org.assertj:assertj-core:3.11.1")
+}
+
+compileJava {
+    options.compilerArgs << '-Xlint:unchecked' //<< '-Werror'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = '0.8.1'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+
+task sourceJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+    repositories {
+        maven {
+            url "s3://mset-artifacts/snapshot/"
+            credentials(AwsCredentials) {
+                accessKey "AKIAJML47KZBKPA347BQ"
+                secretKey this.properties.awsSecret
+            }
+        }
+    }
+}
