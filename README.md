@@ -1,4 +1,4 @@
-#MSet
+# MSet
 
 Mathematical sets in java.
 
@@ -11,27 +11,24 @@ This project is licensed under [Apache License, version 2.0](https://www.apache.
 
 ### Installation
 
-Releases are available in [S3 Release Repository](s3://mset-artifacts/release/)  
-Snapshots are available in [S3 Snapshot Repository](s3://mset-artifacts/snapshot/)
-
-#### Maven
-
-Add this snippet to the pom.xml `dependencies` section:
-
-```xml
-<dependency>
-  <groupId>org.mset</groupId>
-  <artifactId>mset-core</artifactId>
-  <version>1.0</version>
-</dependency>
-```
+Snapshots are available in [Snapshot Repository](https://s3.eu-central-1.amazonaws.com/mset-artifacts/snapshot/)
 
 #### Gradle
 
-Add this snippet to the build.gradle `dependencies` section:
+Add this snippets to build.gradle 
+
+`repositories` section:  
 
 ```groovy
-implementation 'org.mset:mset-core:1.0'
+ maven {
+    url 'https://s3.eu-central-1.amazonaws.com/mset-artifacts/snapshot/'
+}
+```
+
+`dependencies` section:
+
+```groovy
+implementation 'org.mset:mset-core:1.0-SNAPSHOT'
 ```
 
 Pull requests are welcome.
