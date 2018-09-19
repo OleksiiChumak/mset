@@ -1,0 +1,14 @@
+language: java
+install:
+  - bash ./gradlew build
+jdk:
+  - oraclejdk8
+#after_success:
+#  - bash ./gradlew build --no-daemon jacocoTestReport sonarqube publish -Dsonar.projectKey=chumakac_mset-core -Dsonar.organization=chumakac-bitbucket -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -PawsSecret=$AWS_SECRET
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
