@@ -6,7 +6,7 @@ jdk:
 
 script:
   - chmod +x gradlew
-  - ./gradlew build -s --no-daemon --console=plain
+  - ./gradlew build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
