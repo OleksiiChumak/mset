@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mset.impl;
+package com.ochumak.mset.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;

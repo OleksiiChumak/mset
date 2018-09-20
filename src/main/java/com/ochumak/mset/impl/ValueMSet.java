@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mset.impl;
+package com.ochumak.mset.impl;
 
 import java.util.Collection;
 import java.util.Collections;

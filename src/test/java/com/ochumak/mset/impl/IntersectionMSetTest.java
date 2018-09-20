@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mset.impl;
+package com.ochumak.mset.impl;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mset.MSet.of;
+import static com.ochumak.mset.MSet.of;
 
 import java.util.Collections;
 

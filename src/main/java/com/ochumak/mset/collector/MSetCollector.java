@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mset.collector;
+package com.ochumak.mset.collector;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-import org.mset.MSet;
+import com.ochumak.mset.MSet;
 
 public class MSetCollector<I> implements Collector<I, List<I>, MSet<I>> {
 

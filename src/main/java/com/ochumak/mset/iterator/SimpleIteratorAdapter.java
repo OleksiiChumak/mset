@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mset.iterator;
+package com.ochumak.mset.iterator;
 
 import java.util.Iterator;
 

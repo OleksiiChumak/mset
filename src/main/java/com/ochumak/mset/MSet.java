@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mset;
+package com.ochumak.mset;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,13 +24,13 @@ import java.util.stream.Collector;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import org.mset.collector.MSetCollector;
-import org.mset.impl.IntersectionMSet;
-import org.mset.impl.PowerMSet;
-import org.mset.impl.RelativeComplementMSet;
-import org.mset.impl.UnionMSet;
-import org.mset.impl.ValueMSet;
-import org.mset.util.MSetUtils;
+import com.ochumak.mset.collector.MSetCollector;
+import com.ochumak.mset.impl.IntersectionMSet;
+import com.ochumak.mset.impl.PowerMSet;
+import com.ochumak.mset.impl.RelativeComplementMSet;
+import com.ochumak.mset.impl.UnionMSet;
+import com.ochumak.mset.impl.ValueMSet;
+import com.ochumak.mset.util.MSetUtils;
 
 /**
  * A data structure that contains no duplicate elements. The intention of {@code MSet} is to more closely follow

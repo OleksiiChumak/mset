@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.mset.util;
+package com.ochumak.mset.util;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.mset.MSet;
-import org.mset.iterator.SimpleIterator;
-import org.mset.iterator.SimpleIteratorAdapter;
+import com.ochumak.mset.MSet;
+import com.ochumak.mset.iterator.SimpleIterator;
+import com.ochumak.mset.iterator.SimpleIteratorAdapter;
 
 public final class MSetUtils {
 

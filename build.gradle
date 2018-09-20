@@ -4,11 +4,13 @@ plugins {
     id "net.researchgate.release" version "2.7.0"
 }
 
-apply plugin: 'maven-publish'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 
-group 'org.mset'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group 'com.ochumak'
 
 sourceCompatibility = 1.8
 
@@ -47,30 +49,64 @@ javadoc {
     source = sourceSets.main.allJava
 }
 
-task sourceJar(type: Jar, dependsOn: classes) {
+task sourcesJar(type: Jar, dependsOn: classes) {
     classifier 'sources'
     from sourceSets.main.allSource
 }
 
-task packageJavadoc(type: Jar) {
-    from javadoc
+task javadocJar(type: Jar) {
     classifier = 'javadoc'
+    from javadoc
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            artifact sourceJar
-            artifact packageJavadoc
-        }
-    }
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
     repositories {
-        maven {
-            url "s3://mset-artifacts/snapshot/"
-            credentials(AwsCredentials) {
-                accessKey "AKIAJML47KZBKPA347BQ"
-                secretKey this.properties.awsSecret
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: this.properties.ossrhUsername, password: this.properties.ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: this.properties.ossrhUsername, password: this.properties.ossrhPassword)
+            }
+
+            pom.project {
+                name 'MSet'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Mathematical sets in java.'
+                url 'https://github.com/OleksiiChumak/mset'
+
+                scm {
+                    url = 'https://github.com/OleksiiChumak/mset'
+                    connection = 'scm:git:git@github.com:OleksiiChumak/mset.git'
+                    developerConnection = 'scm:git:git@github.com:OleksiiChumak/mset.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'OleksiiChumak'
+                        name = 'Oleksii Chumak'
+                        email = 'chumak.ac@gmail.com'
+                    }
+                }
             }
         }
     }

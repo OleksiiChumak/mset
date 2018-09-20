@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.mset.impl;
+package com.ochumak.mset.impl;
 
 import org.junit.jupiter.api.Test;
-import org.mset.MSet;
+import com.ochumak.mset.MSet;
 
 import java.util.stream.IntStream;
 

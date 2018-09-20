@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.mset.impl;
+package com.ochumak.mset.impl;
 
-import org.mset.MSet;
-import org.mset.iterator.SimpleIteratorImpl;
+import com.ochumak.mset.MSet;
+import com.ochumak.mset.iterator.SimpleIteratorImpl;
 
 import java.util.ArrayList;
 import java.util.BitSet;

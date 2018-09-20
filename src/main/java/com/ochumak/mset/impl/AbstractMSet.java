@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.mset.impl;
+package com.ochumak.mset.impl;
 
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.mset.MSet;
+import com.ochumak.mset.MSet;
 
 public abstract class AbstractMSet<T> implements MSet<T> {
 

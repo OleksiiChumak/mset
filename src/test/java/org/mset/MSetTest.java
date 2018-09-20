@@ -16,6 +16,7 @@
 
 package org.mset;
 
+import com.ochumak.mset.MSet;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

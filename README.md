@@ -11,24 +11,14 @@ This project is licensed under [Apache License, version 2.0](https://www.apache.
 
 ### Installation
 
-Snapshots are available in [Snapshot Repository](https://s3.eu-central-1.amazonaws.com/mset-artifacts/snapshot/)
+Releases are available in [Maven Central](https://repo1.maven.org/maven2/one/util/streamex/)
 
 #### Gradle
 
-Add this snippets to build.gradle 
-
-`repositories` section:  
+Add this snippet to build.gradle `dependencies` section:
 
 ```groovy
- maven {
-    url 'https://s3.eu-central-1.amazonaws.com/mset-artifacts/snapshot/'
-}
-```
-
-`dependencies` section:
-
-```groovy
-implementation 'org.mset:mset-core:1.0-SNAPSHOT'
+implementation 'com.ochumak:mset-core:1.0'
 ```
 
 Pull requests are welcome.

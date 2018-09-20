@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.mset.impl;
+package com.ochumak.mset.impl;
 
 import java.util.Iterator;
 import java.util.Objects;
 
-import org.mset.MSet;
-import org.mset.iterator.SimpleIterator;
-import org.mset.iterator.SimpleIteratorImpl;
-import org.mset.util.MSetUtils;
+import com.ochumak.mset.MSet;
+import com.ochumak.mset.iterator.SimpleIterator;
+import com.ochumak.mset.iterator.SimpleIteratorImpl;
+import com.ochumak.mset.util.MSetUtils;
 
 public class RelativeComplementMSet<T> extends AbstractMSet<T> {
 

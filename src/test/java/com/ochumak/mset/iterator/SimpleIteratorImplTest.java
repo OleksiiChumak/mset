@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mset.iterator;
+package com.ochumak.mset.iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
