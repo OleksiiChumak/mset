@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mset;
+package org.mset.collector;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +25,8 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+
+import org.mset.MSet;
 
 public class MSetCollector<I> implements Collector<I, List<I>, MSet<I>> {
 

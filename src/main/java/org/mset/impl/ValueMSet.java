@@ -28,6 +28,9 @@ public class ValueMSet<T> extends AbstractMSet<T> {
 
     public ValueMSet(Collection<T> values) {
         backSet = Collections.unmodifiableSet(new HashSet<>(values));
+        if (backSet.contains(null)) {
+            throw new NullPointerException("Cannot contain null");
+        }
     }
 
     @Override

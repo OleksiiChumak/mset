@@ -37,7 +37,7 @@ public abstract class AbstractMSet<T> implements MSet<T> {
     }
 
     @Override
-    public long cardinality() {
+    public synchronized long cardinality() {
         if (cardinality < 0) {
             cardinality = calcCardinality();
         }

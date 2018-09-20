@@ -17,12 +17,14 @@
 package org.mset;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import org.mset.collector.MSetCollector;
 import org.mset.impl.IntersectionMSet;
 import org.mset.impl.PowerMSet;
 import org.mset.impl.RelativeComplementMSet;
@@ -30,14 +32,38 @@ import org.mset.impl.UnionMSet;
 import org.mset.impl.ValueMSet;
 import org.mset.util.MSetUtils;
 
+/**
+ * A data structure that contains no duplicate elements. The intention of <tt>MSet</tt> is to more closely follow
+ * operations allowed by the mathematical <i>Set theory</i> than {@link java.util.Set} does it. <tt>MSet</tt> doesn't allow
+ * null as a value.
+ *
+ * <p>Note: Implementations are immutable and thread-safe (iterators are not thread-safe). Methods that return <tt>MSet</tt> don't do any computation other than
+ * creating a new instance, so may be considerate cheep.</p>
+ *
+ * @param <T> the type of elements maintained by this set
+ */
 public interface MSet<T> extends Iterable<T> {
 
+    /**
+     * Constructs a new set containing the elements in the specified
+     * array.
+     *
+     * @param values the array whose elements are to be placed into this set
+     * @throws NullPointerException if the specified array is null or contains a null
+     */
     @SafeVarargs
     static <T> MSet<T> of(T... values) {
         return new ValueMSet<>(Arrays.asList(values));
     }
 
-    static <T> MSet<T> of(List<T> value) {
+    /**
+     * Constructs a new set containing the elements in the specified
+     * collection.
+     *
+     * @param value the collection whose elements are to be placed into this set
+     * @throws NullPointerException if the specified collection is null or contains a null
+     */
+    static <T> MSet<T> of(Collection<T> value) {
         return new ValueMSet<>(value);
     }
 

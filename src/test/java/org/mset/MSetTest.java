@@ -19,6 +19,7 @@ package org.mset;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -94,9 +95,9 @@ class MSetTest {
     @Test
     void equalsSameIntersection() {
         assertTrue(MSet.of(1, 2, 3, 4, 5)
-                .intersection(MSet.of(1, 2, 3, 6))
-                .intersection(MSet.of(1, 2, 3, 8))
-                .equalsSet(MSet.of(1, 2, 3)));
+            .intersection(MSet.of(1, 2, 3, 6))
+            .intersection(MSet.of(1, 2, 3, 8))
+            .equalsSet(MSet.of(1, 2, 3)));
     }
 
     @Test
@@ -107,6 +108,25 @@ class MSetTest {
     @Test
     void of() {
         assertThat(MSet.of(1, 2, 2, 3, 3)).containsExactlyInAnyOrder(1, 2, 3);
+    }
+
+    @Test
+    void ofNullValue() {
+        assertThatThrownBy(() -> MSet.of((Object) null))
+            .isInstanceOf(NullPointerException.class)
+            .hasMessage("Cannot contain null");
+    }
+
+    @Test
+    void ofNullList() {
+        List<Integer> nullList = null;
+        assertThatThrownBy(() -> MSet.of(nullList))
+            .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void ofNullValueInCollection() {
+        assertThatThrownBy(() -> MSet.of(Collections.singleton(null))).isInstanceOf(NullPointerException.class);
     }
 
     @Test
@@ -132,24 +152,24 @@ class MSetTest {
     @Test
     void toMSet() {
         MSet<Integer> set = Stream.of(1, 2, 3, 4, 5, 6, 4, 4, 4, 4)
-                .collect(MSet.toMSet());
+            .collect(MSet.toMSet());
         assertThat(set).containsExactlyInAnyOrder(1, 2, 3, 4, 5, 6);
     }
 
     @Test
     void toStream() {
         List<Integer> res = MSet.of(1, 2, 3, 3, 3, 3, 4)
-                .stream()
-                .collect(Collectors.toList());
+            .stream()
+            .collect(Collectors.toList());
         assertThat(res).containsExactlyInAnyOrder(1, 2, 3, 4);
     }
 
     @Test
     void toStreamFilter() {
         List<Integer> res = MSet.of(1, 2, 3, 3, 3, 3, 4)
-                .stream()
-                .filter(i -> i != 2)
-                .collect(Collectors.toList());
+            .stream()
+            .filter(i -> i != 2)
+            .collect(Collectors.toList());
         assertThat(res).containsExactlyInAnyOrder(1, 3, 4);
     }
 
@@ -159,7 +179,7 @@ class MSetTest {
         MSet<Boolean> complement = set.complement();
 
         assertThatThrownBy(() -> complement.contains(true))
-                .isInstanceOf(IllegalStateException.class);
+            .isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -191,10 +211,10 @@ class MSetTest {
     @Test
     void powerSet() {
         Assertions.assertThat(MSet.of(1, 2).powerSet())
-                .containsExactlyInAnyOrder(
-                        MSet.of(),
-                        MSet.of(1),
-                        MSet.of(2),
-                        MSet.of(1, 2));
+            .containsExactlyInAnyOrder(
+                MSet.of(),
+                MSet.of(1),
+                MSet.of(2),
+                MSet.of(1, 2));
     }
 }
