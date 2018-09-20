@@ -33,11 +33,11 @@ import org.mset.impl.ValueMSet;
 import org.mset.util.MSetUtils;
 
 /**
- * A data structure that contains no duplicate elements. The intention of <tt>MSet</tt> is to more closely follow
- * operations allowed by the mathematical <i>Set theory</i> than {@link java.util.Set} does it. <tt>MSet</tt> doesn't allow
+ * A data structure that contains no duplicate elements. The intention of {@code MSet} is to more closely follow
+ * operations allowed by the mathematical <i>Set theory</i> than {@link java.util.Set} does it. {@code MSet} doesn't allow
  * null as a value.
  *
- * <p>Note: Implementations are immutable and thread-safe (iterators are not thread-safe). Methods that return <tt>MSet</tt> don't do any computation other than
+ * <p>Note: Implementations are immutable and thread-safe (iterators are not thread-safe). Methods that return {@code MSet} don't do any computation other than
  * creating a new instance, so may be considerate cheep.</p>
  *
  * @param <T> the type of elements maintained by this set
@@ -77,7 +77,7 @@ public interface MSet<T> extends Iterable<T> {
      * @param firstSet the first member of the union
      * @param sets     the other members of the union
      * @param <T>      the class of the objects in the sets
-     * @return firstSet &#8746; sets[0] &#8746; ... &#8746; sets[n]
+     * @return {@code firstSet} &#8746; {@code sets[0]} &#8746; ... &#8746; {@code sets[n]}
      */
     @SafeVarargs
     static <T> MSet<T> union(MSet<T> firstSet, MSet<T>... sets) {
@@ -90,7 +90,7 @@ public interface MSet<T> extends Iterable<T> {
      * @param firstSet the first member of the intersection
      * @param sets     the other members of the intersection
      * @param <T>      the class of the objects in the sets
-     * @return firstSet &#8745; sets[0] &#8745; ... &#8745; sets[n]
+     * @return {@code firstSet} &#8745; {@code sets[0]} &#8745; ... &#8745; {@code sets[n]}
      */
     @SafeVarargs
     static <T> MSet<T> intersection(MSet<T> firstSet, MSet<T>... sets) {
@@ -102,28 +102,27 @@ public interface MSet<T> extends Iterable<T> {
      * new {@code MSet}.
      *
      * @param <I> the type of the input elements
-     * @return a {@code Collector} which collects all the input elements into a
-     * {@code MSet}
+     * @return a {@code Collector} which collects all the input elements into a {@code MSet}
      */
     static <I> Collector<I, List<I>, MSet<I>> toMSet() {
         return new MSetCollector<>();
     }
 
     /**
-     * Returns <tt>true</tt> if this set contains the specified element.
+     * Returns {@code true} if this set contains the specified element.
      *
      * @param value element whose presence in this set is to be tested
-     * @return <tt>true</tt> if this set contains the specified element
+     * @return {@code value} &#8712; {@code this}
      */
     boolean contains(Object value);
 
     /**
-     * Returns <tt>true</tt> if this set contains the specified element.
+     * Returns {@code true} if this set contains the specified element.
      *
      * @param value        element whose presence in this set is to be tested
      * @param universalSet a universal set shared with all sets involved in computation. Required if on some level
      *                     a universal set bounded operation such as {@link #complement()} is used
-     * @return <tt>true</tt> if this set contains the specified element
+     * @return {@code value} &#8712; {@code this}
      */
     boolean contains(Object value, MSet<T> universalSet);
 
@@ -147,7 +146,7 @@ public interface MSet<T> extends Iterable<T> {
     /**
      * Returns a set that contains all subsets of the current set
      *
-     * @return P(this)
+     * @return P ({@code this})
      */
     default MSet<MSet<T>> powerSet() {
         return new PowerMSet<>(this);
@@ -156,7 +155,7 @@ public interface MSet<T> extends Iterable<T> {
     /**
      * Returns the number of elements in this set.
      *
-     * @return | this |
+     * @return | {@code this} |
      */
     long cardinality();
 
@@ -164,7 +163,7 @@ public interface MSet<T> extends Iterable<T> {
      * Creates a new set that contains any element if it is present in the current set or in the passed set
      *
      * @param set the second member of the union
-     * @return this &#8746; set
+     * @return {@code this} &#8746; {@code set}
      * @see MSet#union(MSet, MSet[])
      */
     default MSet<T> union(MSet<T> set) {
@@ -175,21 +174,39 @@ public interface MSet<T> extends Iterable<T> {
      * Creates a new set that contains any element if it is present in the current set and in the passed set
      *
      * @param set the second member of the intersection
-     * @return this &#8745; set
+     * @return {@code this} &#8745; {@code set}
      * @see MSet#intersection(MSet, MSet[])
      */
     default MSet<T> intersection(MSet<T> set) {
         return MSet.intersection(this, set);
     }
 
+    /**
+     * Returns a set of objects present in the current set but missed in {@code set}
+     *
+     * @param set set that is compered with the current set
+     * @return {@code this} \ {@code set}
+     */
     default MSet<T> relativeComplement(MSet<T> set) {
         return new RelativeComplementMSet<>(this, set);
     }
 
+
+    /**
+     * Returns a set of objects present in the <i>universal set</i> but missed in the current set
+     *
+     * @return {@code this}<sup>c</sup>
+     */
     default MSet<T> complement() {
         return getUniversalSet().relativeComplement(this);
     }
 
+    /**
+     * Checks if {@code set} contains every element of the current set
+     *
+     * @param set set that is compered with the current set
+     * @return {@code this} &#8838; {@code set}
+     */
     default boolean isSubsetOf(MSet<?> set) {
         for (T value : this) {
             if (!set.contains(value)) {
@@ -199,10 +216,22 @@ public interface MSet<T> extends Iterable<T> {
         return true;
     }
 
+    /**
+     * Checks if the current set contains every element of {@code set}
+     *
+     * @param set set that is compered with the current set
+     * @return {@code this} &#8839; {@code set}
+     */
     default boolean isSuperSetOf(MSet<?> set) {
         return set.isSubsetOf(this);
     }
 
+    /**
+     * Checks if {@code set} and the current set contain the same elements
+     *
+     * @param set set that is compered with the current set
+     * @return {@code this} = {@code set}
+     */
     default boolean equalsSet(MSet<?> set) {
         return isSubsetOf(set) && isSuperSetOf(set);
     }
