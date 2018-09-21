@@ -47,8 +47,8 @@ public class ValueMSet<T> extends AbstractMSet<T> {
     }
 
     //a separate method to suppress sonar warning
-    private static void checkContainsNull(Set<?> set) {
-        if (set.contains(null)) {
+    private static void checkContainsNull(Collection collection) {
+        if (collection.contains(null)) {
             throw new NullPointerException("Cannot contain null");
         }
     }
