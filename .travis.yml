@@ -4,9 +4,11 @@ install: true
 jdk:
   - oraclejdk8
 
-script:
+before_script:
   - echo $SIGN_KEY | base64 -d > secring.gpg
   - chmod +x gradlew
+
+script:
   - ./gradlew build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Psigning.keyId=$SING_KEY_ID -Psigning.password=$SIGN_PASSWORD -Psigning.secretKeyRingFile=secring.gpg -PossrhUsername=$OSSRH_USERNAME -PossrhPassword=$OSSRH_PASSWORD
 #  - ./gradlew build -s --no-daemon jacocoTestReport sonarqube publish -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -PawsSecret=$AWS_SECRET
 
