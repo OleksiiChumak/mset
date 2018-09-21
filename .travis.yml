@@ -5,12 +5,12 @@ jdk:
   - oraclejdk8
 
 before_script:
-  - echo $SIGN_KEY | base64 -d > secring.gpg
   - chmod +x gradlew
+  - chmod +x build_ci.sh
 
 script:
-  - ./gradlew build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Psigning.keyId=$SING_KEY_ID -Psigning.password=$SIGN_PASSWORD -Psigning.secretKeyRingFile=secring.gpg -PossrhUsername=$OSSRH_USERNAME -PossrhPassword=$OSSRH_PASSWORD
-#  - ./gradlew build -s --no-daemon jacocoTestReport sonarqube publish -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -PawsSecret=$AWS_SECRET
+  - ./build_ci.sh
+#  - ./gradlew build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Psigning.keyId=$SING_KEY_ID -Psigning.password=$SIGN_PASSWORD -Psigning.secretKeyRingFile=secring.gpg -PossrhUsername=$OSSRH_USERNAME -PossrhPassword=$OSSRH_PASSWORD
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
