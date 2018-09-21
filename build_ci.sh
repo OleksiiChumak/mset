@@ -4,12 +4,16 @@ BUILD_ARGS='build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=O
 
 if [[ $PUBSLISH_TO_MAVEN == 'true' &&  $TRAVIS_BRANCH  == 'master' ]]
 then
+    echo
     echo Jars will be published to maven repository
+    echo
     echo $SIGN_KEY | base64 -d > secring.gpg
-    BUILD_ARGS=$BUILD_ARGS 'uploadArchives -Psigning.keyId=$SING_KEY_ID -Psigning.password=$SIGN_PASSWORD -Psigning.secretKeyRingFile=secring.gpg -PossrhUsername=$OSSRH_USERNAME -PossrhPassword=$OSSRH_PASSWORD'
+    BUILD_ARGS+=' uploadArchives -Psigning.keyId=$SING_KEY_ID -Psigning.password=$SIGN_PASSWORD -Psigning.secretKeyRingFile=secring.gpg -PossrhUsername=$OSSRH_USERNAME -PossrhPassword=$OSSRH_PASSWORD'
 else
+    echo
     echo Set PUBSLISH_TO_MAVEN=true to publish jars. Publish works only on master brunch
-    BUILD_ARGS=$BUILD_ARGS '-x signArchives'
+    echo
+    BUILD_ARGS+=' -x signArchives'
 fi
 
 echo $BUILD_ARGS
