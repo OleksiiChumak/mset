@@ -15,17 +15,17 @@ if [[ $MAVEN_ACTION == 'PUBLISH' &&  $TRAVIS_BRANCH  == 'master' ]]; then
     echo
     generateSigningFile
     BUILD_ARGS+=" uploadArchives "
-    BUILD_ARGS+=MAVEN_CENTRAL_ARGS
+    BUILD_ARGS+=$MAVEN_CENTRAL_ARGS
 elif [[ $MAVEN_ACTION == 'RELEASE' &&  $TRAVIS_BRANCH  == 'master' ]]; then
     echo
     echo Jars will be released
     echo
     generateSigningFile
     BUILD_ARGS+=" release -Prelease.useAutomaticVersion=true "
-    BUILD_ARGS+=MAVEN_CENTRAL_ARGS
+    BUILD_ARGS+=$MAVEN_CENTRAL_ARGS
 else
     echo
-    echo "Set MAVEN_ACTION={PUBLISH,RELEASE} to perform action maven repository. MAVEN_ACTION works only on master branch"
+    echo "Set MAVEN_ACTION={PUBLISH,RELEASE} to perform action on maven repository. MAVEN_ACTION works only on master branch"
     echo
     BUILD_ARGS+=" -x signArchives"
 fi
