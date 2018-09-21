@@ -45,12 +45,6 @@ jacocoTestReport {
     }
 }
 
-sonarqube {
-    properties {
-        property "sonar.buildbreaker.skip" , "false"
-    }
-}
-
 javadoc {
     source = sourceSets.main.allJava
 }

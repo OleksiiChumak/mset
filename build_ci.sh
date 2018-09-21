@@ -1,17 +1,31 @@
 #!/usr/bin/env bash
 
-BUILD_ARGS="build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN"
+function generateSigningFile()
+{
+    echo Generating signing file
+    echo $SIGN_KEY | base64 -d > secring.gpg
+}
 
-if [[ $PUBSLISH_TO_MAVEN == 'true' &&  $TRAVIS_BRANCH  == 'master' ]]
-then
+BUILD_ARGS="build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN"
+MAVEN_CENTRAL_ARGS="-Psigning.keyId=$SING_KEY_ID -Psigning.password=$SIGN_PASSWORD -Psigning.secretKeyRingFile=secring.gpg -PossrhUsername=$OSSRH_USERNAME -PossrhPassword=$OSSRH_PASSWORD"
+
+if [[ $MAVEN_ACTION == 'PUBLISH' &&  $TRAVIS_BRANCH  == 'master' ]]; then
     echo
     echo Jars will be published to maven repository
     echo
-    echo $SIGN_KEY | base64 -d > secring.gpg
-    BUILD_ARGS+=" uploadArchives -Psigning.keyId=$SING_KEY_ID -Psigning.password=$SIGN_PASSWORD -Psigning.secretKeyRingFile=secring.gpg -PossrhUsername=$OSSRH_USERNAME -PossrhPassword=$OSSRH_PASSWORD"
+    generateSigningFile
+    BUILD_ARGS+=" uploadArchives "
+    BUILD_ARGS+=MAVEN_CENTRAL_ARGS
+elif [[ $MAVEN_ACTION == 'RELEASE' &&  $TRAVIS_BRANCH  == 'master' ]]; then
+    echo
+    echo Jars will be released
+    echo
+    generateSigningFile
+    BUILD_ARGS+=" release -Prelease.useAutomaticVersion=true "
+    BUILD_ARGS+=MAVEN_CENTRAL_ARGS
 else
     echo
-    echo Set PUBSLISH_TO_MAVEN=true to publish jars. Publish works only on master brunch
+    echo "Set MAVEN_ACTION={PUBLISH,RELEASE} to perform action maven repository. MAVEN_ACTION works only on master branch"
     echo
     BUILD_ARGS+=" -x signArchives"
 fi
