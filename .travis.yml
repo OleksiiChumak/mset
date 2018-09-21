@@ -6,7 +6,6 @@ jdk:
 
 before_script:
   - chmod +x gradlew
-#  - chmod +x build_ci.sh
 
 script:
   - ./gradlew build -x signArchives -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
