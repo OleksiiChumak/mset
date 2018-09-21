@@ -28,9 +28,7 @@ public class ValueMSet<T> extends AbstractMSet<T> {
 
     public ValueMSet(Collection<T> values) {
         backSet = Collections.unmodifiableSet(new HashSet<>(values));
-        if (backSet.contains(null)) {
-            throw new NullPointerException("Cannot contain null");
-        }
+        checkContainsNull(backSet);
     }
 
     @Override
@@ -46,5 +44,12 @@ public class ValueMSet<T> extends AbstractMSet<T> {
     @Override
     protected long calcCardinality() {
         return backSet.size();
+    }
+
+    //a separate method to suppress sonar warning
+    private static void checkContainsNull(Set<?> set) {
+        if (set.contains(null)) {
+            throw new NullPointerException("Cannot contain null");
+        }
     }
 }

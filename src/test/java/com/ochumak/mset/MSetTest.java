@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package org.mset;
+package com.ochumak.mset;
 
-import com.ochumak.mset.MSet;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
