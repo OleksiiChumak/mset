@@ -16,5 +16,4 @@ else
     BUILD_ARGS+=' -x signArchives'
 fi
 
-echo $BUILD_ARGS
-#./gradlew ${BUILD_ARGS}
+./gradlew $BUILD_ARGS
