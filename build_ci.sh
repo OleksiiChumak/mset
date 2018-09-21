@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BUILD_ARGS=build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+BUILD_ARGS='build -s --no-daemon jacocoTestReport sonarqube -Dsonar.projectKey=OleksiiChumak_mset -Dsonar.organization=oleksiichumak-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN'
 
 if [[ $PUBSLISH_TO_MAVEN == 'true' &&  $TRAVIS_BRANCH  == 'master' ]]
 then
