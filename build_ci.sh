@@ -30,4 +30,5 @@ else
     BUILD_ARGS+=" -x signArchives"
 fi
 
-./gradlew $BUILD_ARGS
+git status
+#./gradlew $BUILD_ARGS
