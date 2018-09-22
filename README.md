@@ -80,7 +80,7 @@ Add this snippet to the pom.xml `dependencies` section:
 <dependency>
   <groupId>com.ochumak</groupId>
   <artifactId>mset-core</artifactId>
-  <version>1.4</version>
+  <version>1.6</version>
 </dependency>
 ```
 
@@ -89,7 +89,7 @@ Add this snippet to the pom.xml `dependencies` section:
 Add this snippet to the build.gradle `dependencies` section:
 
 ```groovy
-compile 'com.ochumak:mset-core:1.4'
+compile 'com.ochumak:mset-core:1.6'
 ```
 
 Pull requests are welcome.
