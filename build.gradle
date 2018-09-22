@@ -1,0 +1,115 @@
+plugins {
+    id 'java'
+    id "org.sonarqube" version "2.6"
+    id "net.researchgate.release" version "2.7.0"
+}
+
+apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group 'com.ochumak'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile("org.mockito:mockito-core:2.21.0")
+    testCompile("org.mockito:mockito-junit-jupiter:2.21.0")
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.3.0")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.3.0")
+    testCompile("org.assertj:assertj-core:3.11.1")
+}
+
+compileJava {
+    options.compilerArgs << '-Xlint:unchecked' //<< '-Werror'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = '0.8.1'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: this.properties.ossrhUsername, password: this.properties.ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: this.properties.ossrhUsername, password: this.properties.ossrhPassword)
+            }
+
+            pom.project {
+                name 'MSet'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Mathematical sets in java.'
+                url 'https://github.com/OleksiiChumak/mset'
+
+                scm {
+                    url = 'https://github.com/OleksiiChumak/mset'
+                    connection = 'scm:git:git@github.com:OleksiiChumak/mset.git'
+                    developerConnection = 'scm:git:git@github.com:OleksiiChumak/mset.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'OleksiiChumak'
+                        name = 'Oleksii Chumak'
+                        email = 'chumak.ac@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+afterReleaseBuild.dependsOn uploadArchives
