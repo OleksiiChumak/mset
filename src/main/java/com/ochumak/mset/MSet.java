@@ -42,7 +42,7 @@ import com.ochumak.mset.util.MSetUtils;
  *
  * @param <T> the type of elements maintained by this set
  */
-public interface MSet<T> extends Iterable<T> {
+public interface MSet22414<T> extends Iterable<T> {
 
     /**
      * Constructs a new set containing the elements in the specified
