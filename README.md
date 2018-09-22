@@ -4,7 +4,7 @@ Mathematical sets in java.
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.ochumak/mset-core.svg)](https://maven-badges.herokuapp.com/maven-central/com.ochumak/mset-core)
 [![Build Status](https://travis-ci.org/OleksiiChumak/mset.svg?branch=master)](https://travis-ci.org/OleksiiChumak/mset)
-[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=OleksiiChumak_mset&metric=coverage)](https://sonarcloud.io/dashboard?id=OleksiiChumak_mset)
+[![Coverage Status](https://coveralls.io/repos/github/OleksiiChumak/mset/badge.svg)](https://coveralls.io/github/OleksiiChumak/mset)
 [![License](http://img.shields.io/:license-apache-green.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ### Examples
